@@ -2,7 +2,6 @@
 type Person {
   # The ID of an object
   id: ID!
-  _id: Int
   name: String
   height: String
   mass: String
@@ -18,5 +17,5 @@ type Person {
 }
 
 type Query {
-  allPersons: [Person]
+  allPersons(page: Int): [Person]
 }
