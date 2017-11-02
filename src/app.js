@@ -1,12 +1,12 @@
-import "babel-polyfill"
-import Koa from 'koa'
-import graphqlHttp from 'koa-graphql'
+import "babel-polyfill";
+import Koa from 'koa';
+import graphqlHttp from 'koa-graphql';
 
-import { schema } from './schema'
+import { schema } from './PeopleType';
 
 const PORT = process.env.PORT || 5000
 
-var app = new Koa()
+var app = new Koa();
 
 app.use(graphqlHttp({
   schema,
