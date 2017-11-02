@@ -82,6 +82,7 @@ const QueryType = new GraphQLObjectType({
       resolve: async (_, args) => {
         const resp = await fetch(`https://swapi.co/api/people/?page=${args.page}`);
         const data = await resp.json();
+        console.log(data);
         return data.results;
       }
     }
