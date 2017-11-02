@@ -17,11 +17,7 @@ const PersonType = new GraphQLObjectType({
   name: 'Person',
   description: 'Person data',
   fields: () => ({
-    id: globalIdField('Person'),
-    _id: {
-      type: GraphQLInt,
-      resolve: person => person._id,
-    },
+    id: globalIdField('Person'),    
     name: {
       type: GraphQLString,
       resolve: person => person.name,
@@ -78,10 +74,15 @@ const QueryType = new GraphQLObjectType({
   fields: () => ({
     allPersons: {
       type: new GraphQLList(PersonType),
-      resolve: async () => {
-        const resp = await fetch('https://swapi.co/api/people/');
+      args: {
+        page: {
+          type: GraphQLInt
+        }
+      },
+      resolve: async (_, args) => {
+        const resp = await fetch(`https://swapi.co/api/people/?page=${args.page}`);
         const data = await resp.json();
-        console.log(data)
+        console.log(data);
         return data.results;
       }
     }
