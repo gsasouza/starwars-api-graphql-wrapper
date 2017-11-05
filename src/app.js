@@ -2,7 +2,7 @@ import "babel-polyfill";
 import Koa from 'koa';
 import graphqlHttp from 'koa-graphql';
 
-import { schema } from './PeopleType';
+import schema from './type/QueryType';
 
 const PORT = process.env.PORT || 5000
 
