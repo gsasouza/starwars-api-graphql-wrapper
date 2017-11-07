@@ -2,16 +2,19 @@ import {
   nodeDefinitions, fromGlobalId
 } from 'graphql-relay';
 
-import PersonLoader from '../loader/ApiLoader';
+import ApiLoader from '../loader/ApiLoader';
 
 const { nodeInterface, nodeField } = nodeDefinitions(
   globalId => {
     const { type, id } = fromGlobalId(globalId);
-    if (type === 'Person') {
-      return personLoader.load(`https://swapi.co/api/people/${id}/`);
-    }
-    if (type === 'Planet') {
-      return personLoader.load(`https://swapi.co/api/planet/${id}/`);
+    console.log(type, id)
+    switch (type) {
+      case 'Person': return ApiLoader.load(`https://swapi.co/api/people/${id}/`);
+      case 'Planet': return ApiLoader.load(`https://swapi.co/api/planets/${id}/`);
+      case 'Movie': return ApiLoader.load(`https://swapi.co/api/films/${id}/`);
+      case 'Specie': return ApiLoader.load(`https://swapi.co/api/species/${id}/`);
+      case 'Starship': return ApiLoader.load(`https://swapi.co/api/starships/${id}/`);
+      case 'Vehicle': return ApiLoader.load(`https://swapi.co/api/vehicles/${id}/`);
     }
   },
   object => {
@@ -20,6 +23,18 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     }
     if (object.hasOwnProperty('diameter')) {
       return 'Planet';
+    }
+    if (object.hasOwnProperty('episodeId')) {
+      return 'Movie';
+    }
+    if (object.hasOwnProperty('classification')) {
+      return 'Specie';
+    }
+    if (object.hasOwnProperty('starshipClass')) {
+      return 'Starship';
+    }
+    if (object.hasOwnProperty('vehicleClass')) {
+      return 'Vehicle';
     }
   },
 );

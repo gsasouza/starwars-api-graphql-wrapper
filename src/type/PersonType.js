@@ -13,8 +13,9 @@ import ApiLoader from '../loader/ApiLoader';
 
 import PlanetType from './PlanetType';
 import MovieType from './MovieType';
-
-
+import VehicleType from './VehicleType';
+import StarshipType from './StarshipType';
+import SpecieType from './SpecieType';
 
 export default new GraphQLObjectType({
   name: 'Person',
@@ -53,18 +54,18 @@ export default new GraphQLObjectType({
       type: new GraphQLList(MovieType),
       resolve: person => ApiLoader.loadMany(person.films)
     },
-    // species: {
-    //   type: new GraphQLList(SpecieType),
-    //   resolve: person => ApiLoader.loadMany(person.species)
-    // },
-    // vehicles: {
-    //   type: new GraphQLList(VehicleType),
-    //   resolve: person => ApiLoader.loadMany(person.vehicles)
-    // },
-    // starships: {
-    //   type: new GraphQLList(StarshipType),
-    //   resolve: person => ApiLoader.loadMany(person.starships)
-    // },
+    species: {
+      type: new GraphQLList(SpecieType),
+      resolve: person => ApiLoader.loadMany(person.species)
+    },
+    vehicles: {
+      type: new GraphQLList(VehicleType),
+      resolve: person => ApiLoader.loadMany(person.vehicles)
+    },
+    starships: {
+      type: new GraphQLList(StarshipType),
+      resolve: person => ApiLoader.loadMany(person.starships)
+    },
     created: { type: GraphQLString },
     edited: { type: GraphQLString },
     url: { type: GraphQLString },
