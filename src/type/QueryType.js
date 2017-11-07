@@ -15,13 +15,6 @@ import VehicleType from './VehicleType';
 import StarshipType from './StarshipType';
 import SpecieType from './SpecieType';
 
-import MovieConnection from '../connection/MovieConnection';
-import PersonConnection from '../connection/PersonConnection';
-import PlanetConnection from '../connection/PlanetConnection';
-import SpecieConnection from '../connection/SpecieConnection';
-import StarshipConnection from '../connection/StarshipConnection';
-import VehicleConnection from '../connection/VehicleConnection';
-
 export default new GraphQLObjectType({
   name: 'Query',
   description: 'The root of all... queries',
@@ -42,12 +35,8 @@ export default new GraphQLObjectType({
       resolve: (_, args) => ApiLoader.load(`https://swapi.co/api/people/${args.id}`),
     },
     allMovies: {
-      type: MovieConnection.connectionType,
-      args: {
-        ...connectionArgs,
-        page: { type: GraphQLInt }
-      },
-      resolve: (_, args) => ApiLoader.load(`https://swapi.co/api/films?page=${args.page}`)
+      type: new GraphQLList(MovieType),
+      resolve: (_, args) => ApiLoader.load(`https://swapi.co/api/films`),
     },
     movie: {
       type: MovieType,

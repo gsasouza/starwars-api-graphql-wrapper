@@ -20,16 +20,16 @@ import SpecieType from './SpecieType';
 export default new GraphQLObjectType({
   name: 'Movie',
   description: 'Movie data',
-  fields: () => ({
-    id: globalIdField('Movie'),
+  fields: () => ({ 
     _id: {
       type: GraphQLString,
       resolve: movie => movie.url.match(/([\d+])/g).join('')
     },
+    id: globalIdField('Movie', (obj) => obj.url.match(/([\d+])/g).join('')),
     title: { type: GraphQLString },
     episodeId: { 
       type: GraphQLString,
-      resolve: movie => { console.log(movie); return movie.episode_id }
+      resolve: movie => movie.episode_id 
     },
     openingCrawl: {
       type: GraphQLString,

@@ -19,7 +19,7 @@ export default new GraphQLObjectType({
   name: 'Specie',
   description: 'Specie data',
   fields: () => ({
-    id: globalIdField('Specie'),
+    id: globalIdField('Specie', (obj) => obj.url.match(/([\d+])/g).join('')),
     _id: {
       type: GraphQLString,
       resolve: specie => specie.url.match(/([\d+])/g).join('')
