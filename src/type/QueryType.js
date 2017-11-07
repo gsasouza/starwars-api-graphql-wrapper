@@ -22,7 +22,7 @@ import SpecieConnection from '../connection/SpecieConnection';
 import StarshipConnection from '../connection/StarshipConnection';
 import VehicleConnection from '../connection/VehicleConnection';
 
-const QueryType = new GraphQLObjectType({
+export default new GraphQLObjectType({
   name: 'Query',
   description: 'The root of all... queries',
   fields: () => ({
@@ -113,8 +113,4 @@ const QueryType = new GraphQLObjectType({
       resolve: (_, args) => ApiLoader.load(`https://swapi.co/api/vehicles/${args.id}`),
     },
   }),
-});
-
-export default new GraphQLSchema({
-  query: QueryType,
 });

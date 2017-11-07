@@ -1,5 +1,66 @@
+# Movie data
+type Movie implements Node {
+  # The ID of an object
+  id: ID!
+  _id: String
+  title: String
+  episodeId: String
+  openingCrawl: String
+  director: String
+  producer: String
+  releaseDate: String
+  characters: [Person]
+  planets: [Planet]
+  starships: [Starship]
+  vehicles: [Vehicle]
+  species: [Specie]
+  created: String
+  edited: String
+  url: String
+}
+
+# A connection to a list of items.
+type MovieConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MovieEdge]
+  count: Int
+}
+
+# An edge in a connection.
+type MovieEdge {
+  # The item at the end of the edge
+  node: Movie
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
 # Person data
-type Person {
+type Person implements Node {
   # The ID of an object
   id: ID!
   _id: String
@@ -11,12 +72,123 @@ type Person {
   eyeColor: String
   birthYear: String
   gender: String
-  homeworld: String
+  homeworld: Planet
+  films: [Movie]
+  species: [Specie]
+  vehicles: [Vehicle]
+  starships: [Starship]
   created: String
   edited: String
   url: String
 }
 
+# Planet data
+type Planet implements Node {
+  # The ID of an object
+  id: ID!
+  _id: String
+  name: String
+  rotationPeriod: String
+  orbitalPeriod: String
+  diameter: String
+  climate: String
+  gravity: String
+  terrain: String
+  surfaceWater: String
+  population: String
+  residents: [Person]
+  films: [Movie]
+  created: String
+  edited: String
+  url: String
+}
+
+# The root of all... queries
 type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
   allPersons(page: Int): [Person]
+  person(id: Int): Person
+  allMovies(after: String, first: Int, before: String, last: Int, page: Int): MovieConnection
+  movie(id: Int): Movie
+  allPlanets(page: Int): [Planet]
+  planet(id: Int): Planet
+  allSpecies(page: Int): [Specie]
+  specie(id: Int): Specie
+  allStarships(page: Int): [Starship]
+  starship(id: Int): Starship
+  allVehicles(page: Int): [Vehicle]
+  vehicle(id: Int): Vehicle
+}
+
+# Specie data
+type Specie implements Node {
+  # The ID of an object
+  id: ID!
+  _id: String
+  name: String
+  classification: String
+  averageHeight: String
+  skinColors: String
+  hairColors: String
+  eyeColors: String
+  averageLifespan: String
+  homeworld: Planet
+  language: String
+  people: [Person]
+  films: [Movie]
+  created: String
+  edited: String
+  url: String
+}
+
+# Starship data
+type Starship implements Node {
+  # The ID of an object
+  id: ID!
+  _id: String
+  name: String
+  model: String
+  manufacter: String
+  costInCredits: String
+  length: String
+  maxAtmospheringSpeed: String
+  crew: String
+  passengers: String
+  cargoCapacity: String
+  consumables: String
+  hyperdriveRating: String
+  mglt: String
+  starshipClass: String
+  pilots: [Person]
+  films: [Movie]
+  created: String
+  edited: String
+  url: String
+}
+
+# Vehicle data
+type Vehicle implements Node {
+  # The ID of an object
+  id: ID!
+  _id: String
+  name: String
+  model: String
+  manufacter: String
+  costInCredits: String
+  length: String
+  maxAtmospheringSpeed: String
+  crew: String
+  passengers: String
+  cargoCapacity: String
+  consumables: String
+  vehicleClass: String
+  pilots: [Person]
+  films: [Movie]
+  created: String
+  edited: String
+  url: String
 }
