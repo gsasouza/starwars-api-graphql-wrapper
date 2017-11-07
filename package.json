@@ -4,7 +4,7 @@
   "description": "Graphql wrapper for starwars api (SWAPI)",
   "main": "index.js",
   "scripts": {
-    "start": "node lib/app.js",
+    "start": "node ./lib/app.js",
     "server": "nodemon src/app.js --exec babel-node",
     "test": "mocha --compilers js:babel-register",
     "build": "babel src -d lib",
